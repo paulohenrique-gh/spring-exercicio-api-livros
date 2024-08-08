@@ -32,12 +32,13 @@ public class BooksController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Book>> getAllBooks(@RequestParam(defaultValue = "") String genre) {
-        if (!genre.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.OK).body(booksRepository.findByGenre(genre));
-        }
-
+    public ResponseEntity<List<Book>> getAllBooks() {
         return ResponseEntity.status(HttpStatus.OK).body(booksRepository.findAll());
+    }
+
+    @GetMapping("genres/{genre}")
+    public ResponseEntity<List<Book>> getBooksByGenre(@PathVariable String genre) {
+        return ResponseEntity.status(HttpStatus.OK).body(booksRepository.findByGenre(genre));
     }
 
     @PostMapping
@@ -62,5 +63,4 @@ public class BooksController {
         responseMessage.put("message", "Book deleted successfully");
         return ResponseEntity.status(HttpStatus.OK).body(responseMessage);
     }
-
 }

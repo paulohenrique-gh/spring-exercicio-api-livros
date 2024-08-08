@@ -11,5 +11,5 @@ import java.util.UUID;
 public interface BooksRepository extends JpaRepository<Book, UUID> {
 
     @Query("SELECT b FROM Book b WHERE b.genre ILIKE %:genre%")
-    List<Book> findByGenre(@Param("genre")String genre);
+    List<Book> findByGenre(@Param("genre") String genre);
 }
