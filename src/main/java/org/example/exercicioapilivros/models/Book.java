@@ -25,9 +25,12 @@ public class Book {
     @NotBlank
     private String title;
 
-    @NotNull
+    @NotBlank
     private String authorName;
 
     @NotNull
     private Integer releaseYear;
+
+    @NotBlank
+    private String genre;
 }
