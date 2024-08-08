@@ -32,7 +32,11 @@ public class BooksController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Book>> getAllBooks() {
+    public ResponseEntity<List<Book>> getAllBooks(@RequestParam(defaultValue = "") String genre) {
+        if (!genre.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.OK).body(booksRepository.findByGenre(genre));
+        }
+
         return ResponseEntity.status(HttpStatus.OK).body(booksRepository.findAll());
     }
 
@@ -55,7 +59,7 @@ public class BooksController {
         Book book = booksRepository.findById(id).orElseThrow(BookNotFoundException::new);
         booksRepository.delete(book);
         Map<String, String> responseMessage = new HashMap<>();
-        responseMessage.put("message", "Book deleted succesfully");
+        responseMessage.put("message", "Book deleted successfully");
         return ResponseEntity.status(HttpStatus.OK).body(responseMessage);
     }
 
